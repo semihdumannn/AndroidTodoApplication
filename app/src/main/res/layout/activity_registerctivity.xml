@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Registerctivity">
+
+    <!-- <android.support.v7.widget.Toolbar
+         android:background="@drawable/header_Register"
+         android:layout_width="match_parent"
+         android:layout_height="220dp"
+     />-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/bgHeader"
+        android:background="@drawable/header_register"
+        android:layout_width="match_parent"
+        android:elevation="5dp"
+        android:layout_height="220dp">
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/welcomeRegisterTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:text="Hoş Geldiniz"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"
+        android:textColor="#FFF"
+        />
+
+    <TextView
+        android:id="@+id/descRegisterTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:text="Kayıt Ol"
+        android:layout_below="@+id/welcomeRegisterTv"
+        android:layout_alignLeft="@+id/welcomeRegisterTv"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="#FFF"
+        />
+    <ImageView
+        android:id="@+id/circle1"
+        android:layout_width="134dp"
+        android:layout_height="134dp"
+        android:layout_below="@+id/bgHeader"
+        android:src="@drawable/circle_transparent"
+        android:layout_marginTop="-80dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="-100dp"
+        />
+
+    <ImageView
+        android:id="@+id/circle2"
+        android:layout_width="134dp"
+        android:layout_height="134dp"
+        android:src="@drawable/circle_transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-50dp"
+        android:layout_marginLeft="-100dp"
+        />
+
+    <ImageView
+        android:id="@+id/circle3"
+        android:layout_width="182dp"
+        android:layout_height="182dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="-80dp"
+        android:layout_marginBottom="-40dp"
+        android:src="@drawable/circle"
+        />
+
+    <ImageView
+        android:id="@+id/circle4"
+        android:layout_width="134dp"
+        android:layout_height="134dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/circle3"
+        android:layout_marginBottom="-50dp"
+        android:layout_marginRight="-50dp"
+        android:src="@drawable/circle_transparent"
+        />
+
+    <ScrollView
+        android:id="@+id/svRegister"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvRegister"
+                android:layout_marginTop="20dp"
+                app:cardElevation="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="50dp"
+                    >
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="E-mail"
+                        android:textColor="@color/colorPurple"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        />
+                    <EditText
+                        android:id="@+id/emailRegisterEdt"
+                        android:background="@drawable/bg_input_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:paddingLeft="10dp"
+                        android:hint="todo@google.com"
+                        android:inputType="textEmailAddress"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        />
+
+
+                    <TextView
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Parolanız"
+                        android:textColor="@color/colorPurple"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        />
+                    <EditText
+                        android:id="@+id/passwordRegisterEdt"
+                        android:background="@drawable/bg_input_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:paddingLeft="10dp"
+                        android:hint="Ör : ******"
+                        android:inputType="textPassword"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        />
+
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cvRegister"
+                android:elevation="10dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="-30dp"
+                >
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kayıt Ol"
+                    android:onClick="save"
+                    android:textAllCaps="false"
+                    android:background="@drawable/bg_ui"
+                    android:textColor="@color/colorWhite"
+                    />
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

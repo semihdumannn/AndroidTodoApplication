@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F4F4F4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".MainActivity">
+    <LinearLayout
+        android:id="@+id/mainLinerLayout"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginLeft="16dp"
+                    android:orientation="vertical"
+                    android:layout_marginRight="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/mainTodoTextView"
+                        android:textSize="20sp"
+                        android:textColor="#FFFFFF"
+                        android:text="Yapılacaklar Listesi"
+                        android:layout_marginTop="30dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/subMainTextView"
+                        android:textSize="14sp"
+                        android:textColor="#FFF"
+                        android:text="Yapılacaklar Listesi"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <Button
+                    android:layout_marginTop="25dp"
+                    android:layout_marginLeft="90dp"
+                    android:id="@+id/btnMainNewTodo"
+                    android:text="+"
+                    android:onClick="addNew"
+                    android:background="@drawable/bg_new_btn"
+                    android:textSize="28sp"
+                    android:textColor="#FFF"
+                    android:textAlignment="center"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp" />
+            </LinearLayout>
+            <View
+                android:layout_marginTop="20dp"
+                android:background="#131E69"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+        </LinearLayout>
+        <FrameLayout
+            tools:context="com.semihduman.todo.MainActivity"
+            android:layout_marginTop="-20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/todoListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                >
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:onClick="logout"
+       android:layout_alignBottom="@+id/mainLinerLayout"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:baselineAlignBottom="true"
+        android:src="@drawable/ic_subdirectory_arrow_right_black_24dp"
+        android:layout_margin="16dp" />
+
+</RelativeLayout>
+

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="-40dp"
+            android:layout_height="match_parent">
+            <Button
+                android:background="@drawable/back_arrow"
+                android:onClick="goBack"
+                android:id="@+id/backBtnNewActivity"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/addNewTodoTextView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:textAlignment="center"
+                android:text="Yeni Todo Ekle"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/subAddNewTextView"
+                android:textSize="10sp"
+                android:textColor="#FFF"
+                android:textAlignment="center"
+                android:text="Yeni Bir Todo Ekleme Yapabilirsiniz"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <View
+            android:layout_marginTop="20dp"
+            android:background="#131E69"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_marginTop="-40dp"
+        android:background="@drawable/bg_item"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/titleAddNewTextView"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Başlık"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:paddingLeft="5dp"
+            android:id="@+id/titleAddNewEditText"
+            android:inputType="text"
+            android:background="@drawable/bg_input_task"
+            android:textColorHint="#B5B5B5"
+            android:textColor="@color/colorPrimaryDark"
+            android:hint="Başlık Giriniz"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/desceAddNewTextView"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Açıklama"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:paddingLeft="5dp"
+                android:id="@+id/descAddNewEditText"
+                android:inputType="text"
+                android:background="@drawable/bg_input_task"
+                android:textColorHint="#B5B5B5"
+                android:textColor="@color/colorPrimaryDark"
+                android:hint="Açıklama Giriniz"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/dateAddNewTextView"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Tarih ve Saat"
+                android:textSize="15sp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:paddingLeft="5dp"
+                android:id="@+id/dateAddNewEditText"
+                android:inputType="text"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
+                android:onClick="showDateTime"
+                android:hint="Tarih ve Saat Giriniz"
+                android:background="@drawable/bg_input_task"
+                android:textColorHint="#B5B5B5"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="45dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnSaveNewActivity"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Kaydet"
+        android:textColor="#FFF"
+        android:textAllCaps="false"
+        android:textSize="22sp"
+        android:onClick="save"
+        android:background="@drawable/bg_btn_create"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        />
+
+    <Button
+        android:id="@+id/btnCancelNewActivity"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:text="İptal"
+        android:textColor="#AFAFAF"
+        android:textAllCaps="false"
+        android:textSize="22sp"
+        android:onClick="cancel"
+        android:background="@drawable/bg_btn_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        />
+
+
+
+</LinearLayout>
