@@ -10,4 +10,5 @@
     <color name="colorBlue">#2FB4FF</color>
     <color name="colorBlueT">#642FB4FF</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="transparent">#80FFFFFF</color>
 </resources>

@@ -6,12 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Canvas;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import database.FirabaseDb;
+import helpers.adapters.BroadcastReceiver.NetworkChangeReceiver;
 import helpers.adapters.Helper;
 import helpers.adapters.SwipeController;
 import helpers.adapters.SwipeControllerActions;
@@ -35,11 +42,15 @@ import objects.Todo;
 
 
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     FirabaseDb reference ;
     FirebaseAuth mAuth ;
     FirebaseUser firebaseUser;
+    FirebaseAuth.AuthStateListener mAuthListener ;
+
     RecyclerView listRecyler;
     public static ArrayList<Todo> todoList;
     TodoListAdapter adapter;
@@ -47,37 +58,125 @@ public class MainActivity extends AppCompatActivity {
     String userId;
     //SwipeController
     SwipeController swipeController = null;
+    //Network Kontrol
+    private NetworkChangeReceiver receiver;
+    SwipeRefreshLayout swipeRefreshLayout;
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add_menu:
+                startAdd();
+            break;
+
+            case R.id.logout_menu:
+                logoutApp();
+                break;
+
+            case R.id.profile_menu:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //initialize layout components
         btnNew = findViewById(R.id.btnMainNewTodo);
         listRecyler = findViewById(R.id.todoListRecyclerView);
+        swipeRefreshLayout = findViewById(R.id.swpLayout);
 
-        setupFirebaseUser();
 
-        userId = mAuth.getUid();
+
+
 
         listRecyler.setLayoutManager(new LinearLayoutManager(this));
         todoList = new ArrayList<>();
         reference =  new FirabaseDb("Todo");
-        //Load Items
-        loadItems();
+        //firebase user setup and listener
+        setupFirebaseUser();
+        userId = mAuth.getUid();
+
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new NetworkChangeReceiver();
+        registerReceiver(receiver, filter);
+
+        if (receiver.isNetworkAvailable(getApplicationContext()))
+            loadItems();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (NetworkChangeReceiver.isConnected)
+                    loadItems();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+        checkCurrentUser(mAuth.getCurrentUser());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);//receiver durduruluyor
     }
 
     public void  setupFirebaseUser(){
         mAuth = FirebaseAuth.getInstance();
-        firebaseUser = mAuth.getCurrentUser(); // authenticated user
-        if (firebaseUser == null){
-            Intent intent = new Intent(this,LoginActivity.class);
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser fuser = firebaseAuth.getCurrentUser();
+                checkCurrentUser(fuser);
+
+                if (fuser != null) {
+                    //user is signed
+                    userId = fuser.getUid();
+                    //System.out.println("check user  : " + userId  );
+                } else {
+                    Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(i);
+
+                }
+            }
+        };
+
+    }
+
+    private void checkCurrentUser(FirebaseUser user) {
+        if (user == null) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
     }
 
     private void loadItems() {
+
         todoList.clear();
         Query queryRef = FirebaseDatabase.getInstance().getReference("Todo").orderByChild("userId").equalTo(userId);
         queryRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -148,9 +247,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     public void addNew(View view){
-        //String id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        startAdd();
+    }
+
+    private void startAdd(){
         Intent i = new Intent(this,AddNewActivity.class);
         i.putExtra("action","new");
         i.putExtra("userId",  userId);
@@ -158,6 +259,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logout(View view){
+       logoutApp();
+    }
+    private void logoutApp(){
         FirebaseAuth.getInstance().signOut();
         Intent i = new Intent(this,LoginActivity.class);
         startActivity(i);

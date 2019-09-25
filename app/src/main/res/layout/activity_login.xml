@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginRl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
@@ -104,12 +105,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ProgressBar
+                    android:id="@+id/pbLogin"
+                    android:theme="@style/CircularProgress"
+                    style="@style/Widget.AppCompat.ProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:translationZ="2dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    tools:ignore="ObsoleteLayoutParam" />
+
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="50dp"
                     >
+
                     <TextView
                         android:layout_margin="10dp"
                         android:layout_width="wrap_content"
@@ -151,6 +164,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
